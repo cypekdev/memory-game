@@ -1,0 +1,79 @@
+:root {
+  --BGcolor: #212121;
+  --cardColor: #171717;
+  --darkGray: #0c0c0c;
+  --colorActive: #000000;
+  --color: #dddddd;
+}
+* {
+  margin: 0;
+  padding: 0;
+  color: var(--color);
+  font-family: sans-serif;
+}
+html {
+  background-color: var(--BGcolor);
+}
+div#cards {
+  width: 500px;
+  margin: 0 auto;
+}
+.card {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background-color: var(--cardColor);
+  border-radius: 25px;
+  margin: 10px;
+  transition: 0.3s;
+  box-shadow: 5px 5px 20px var(--darkGray);
+  padding: 15px;
+}
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 10px 10px 20px var(--darkGray);
+}
+.card:active {
+  transform: scale(1.01);
+  box-shadow: 7px 7px 20px var(--darkGray);
+  background-color: var(--colorActive);
+}
+h3 {
+  text-align: center;
+}
+.area_style1 {
+  background-color: #b43232;
+  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+}
+.area_style2 {
+  background-color: #972e2e;
+  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+}
+.area_style3 {
+  background-color: #c55c93;
+  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+}
+.area_style4 {
+  background-color: #893795;
+  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+}
+.area_style5 {
+  background-color: #3f49ab;
+  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+}
+.area_style6 {
+  background-color: #2394a3;
+  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+}
+.area_style7 {
+  background-color: #23a348;
+  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+}
+.area_style8 {
+  background-color: #c1bf2d;
+  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+}
+.area_style9 {
+  background-color: #cd5c35;
+  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+}
