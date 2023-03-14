@@ -1,9 +1,10 @@
 :root {
   --BGcolor: #212121;
-  --cardColor: #171717;
+  --cardColor: #161616;
   --darkGray: #0c0c0c;
   --colorActive: #000000;
   --color: #dddddd;
+  --goodAnswerColor: #23a348;
 }
 * {
   margin: 0;
@@ -14,14 +15,39 @@
 html {
   background-color: var(--BGcolor);
 }
+h1, p {
+  text-align: center;
+}
+div#button_box {
+  display: flex;
+  justify-content: center;
+}
+button {
+  font-family: monospace;
+  font-size: 1.5rem;
+  color: #FAFAFA;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #FAFAFA;
+  background: #252525;
+  box-shadow: 3px 3px #fafafa;
+  cursor: pointer;
+  margin: 35px 0;
+}
+
+button:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
 div#cards {
-  width: 500px;
+  width: 390px;
   margin: 0 auto;
 }
 .card {
   display: inline-block;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   background-color: var(--cardColor);
   border-radius: 25px;
   margin: 10px;
@@ -38,42 +64,56 @@ div#cards {
   box-shadow: 7px 7px 20px var(--darkGray);
   background-color: var(--colorActive);
 }
-h3 {
-  text-align: center;
-}
 .area_style1 {
   background-color: #b43232;
-  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 5px 5px 50px #ffffff40;
 }
 .area_style2 {
   background-color: #972e2e;
-  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 5px 5px 50px #ffffff40;
 }
 .area_style3 {
   background-color: #c55c93;
-  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 5px 5px 50px #ffffff40;
 }
 .area_style4 {
   background-color: #893795;
-  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 5px 5px 50px #ffffff40;
 }
 .area_style5 {
   background-color: #3f49ab;
-  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 5px 5px 50px #ffffff40;
 }
 .area_style6 {
   background-color: #2394a3;
-  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 5px 5px 50px #ffffff40;
 }
 .area_style7 {
   background-color: #23a348;
-  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 5px 5px 50px #ffffff40;
 }
 .area_style8 {
   background-color: #c1bf2d;
-  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 5px 5px 50px #ffffff40;
 }
 .area_style9 {
   background-color: #cd5c35;
-  box-shadow: inset 5px 5px 50px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 5px 5px 50px #ffffff40;
+}
+.area_good_answer { /* TODO */
+  background-color: var(--goodAnswerColor);
+  box-shadow: 5px 5px 20px var(--goodAnswerColor), inset 5px 5px 50px #ffffff40;
+}
+.area_good_answer:hover {
+  box-shadow: 10px 10px 20px var(--goodAnswerColor), inset 5px 5px 50px #ffffff40;
+}
+.area_good_answer:active {
+  box-shadow: 7px 7px 20px var(--goodAnswerColor), inset 5px 5px 50px #ffffff40;
+  background-color: var(--goodAnswerColor);
+}
+
+div#round_counter {
+  text-align: center;
+  font-size: 50px;
+  text-shadow: 0 0 15px#2394a3;
 }
