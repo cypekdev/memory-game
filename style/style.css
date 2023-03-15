@@ -5,6 +5,7 @@
   --colorActive: #000000;
   --color: #dddddd;
   --goodAnswerColor: #23a348;
+  --wrongAnswerColor: #b43232;
 }
 * {
   margin: 0;
@@ -14,13 +15,11 @@
 }
 html {
   background-color: var(--BGcolor);
-}
-h1, p {
-  text-align: center;
-}
-div#button_box {
   display: flex;
   justify-content: center;
+}
+body {
+  text-align: center;
 }
 button {
   font-family: monospace;
@@ -42,7 +41,6 @@ button:active {
 }
 div#cards {
   width: 390px;
-  margin: 0 auto;
 }
 .card {
   display: inline-block;
@@ -65,42 +63,34 @@ div#cards {
   background-color: var(--colorActive);
 }
 .area_style1 {
-  background-color: #b43232;
-  box-shadow: inset 5px 5px 50px #ffffff40;
-}
-.area_style2 {
   background-color: #972e2e;
   box-shadow: inset 5px 5px 50px #ffffff40;
 }
-.area_style3 {
+.area_style2 {
   background-color: #c55c93;
   box-shadow: inset 5px 5px 50px #ffffff40;
 }
-.area_style4 {
+.area_style3 {
   background-color: #893795;
   box-shadow: inset 5px 5px 50px #ffffff40;
 }
-.area_style5 {
+.area_style4 {
   background-color: #3f49ab;
   box-shadow: inset 5px 5px 50px #ffffff40;
 }
-.area_style6 {
+.area_style5 {
   background-color: #2394a3;
   box-shadow: inset 5px 5px 50px #ffffff40;
 }
-.area_style7 {
-  background-color: #23a348;
-  box-shadow: inset 5px 5px 50px #ffffff40;
-}
-.area_style8 {
+.area_style6 {
   background-color: #c1bf2d;
   box-shadow: inset 5px 5px 50px #ffffff40;
 }
-.area_style9 {
+.area_style7 {
   background-color: #cd5c35;
   box-shadow: inset 5px 5px 50px #ffffff40;
 }
-.area_good_answer { /* TODO */
+.area_good_answer {
   background-color: var(--goodAnswerColor);
   box-shadow: 5px 5px 20px var(--goodAnswerColor), inset 5px 5px 50px #ffffff40;
 }
@@ -111,7 +101,17 @@ div#cards {
   box-shadow: 7px 7px 20px var(--goodAnswerColor), inset 5px 5px 50px #ffffff40;
   background-color: var(--goodAnswerColor);
 }
-
+.area_wrong_answer {
+  background-color: var(--wrongAnswerColor);
+  box-shadow: 5px 5px 20px var(--wrongAnswerColor), inset 5px 5px 50px #ffffff40;
+}
+.area_wrong_answer:hover {
+  box-shadow: 10px 10px 20px var(--wrongAnswerColor), inset 5px 5px 50px #ffffff40;
+}
+.area_wrong_answer:active {
+  box-shadow: 7px 7px 20px var(--wrongAnswerColor), inset 5px 5px 50px #ffffff40;
+  background-color: var(--wrongAnswerColor);
+}
 div#round_counter {
   text-align: center;
   font-size: 50px;
