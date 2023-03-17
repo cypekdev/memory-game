@@ -13,8 +13,8 @@ let sequence_is_presented = false;  // Przechowuje informacje, czy klikanie w pr
 let round = 1;                      // numer rundy
 let order = [];                     // tablica order
 let index_of_order = 0;             // Aktualny index tablicy order
-let last_round_result;              // TODO
-let best_result;                    // TODO
+let last_round_result;
+let best_result;
 
 function clicked_field(field) {  // 9 user interaction
   if (sequence_is_presented) {
@@ -37,11 +37,17 @@ function clicked_field(field) {  // 9 user interaction
       if ((index_of_order + 1) >= order.length) {
         round++;
         index_of_order = 0;
+
         setTimeout(start, 400);
       } else {
         index_of_order++;
       }
     } else {
+      localStorage.setItem('last_round_result', (round - 1));
+      last_round_result = localStorage.getItem('last_round_result');
+      if (last_round_result > best_result) {
+        localStorage.setItem('best_result', (round - 1));
+      }
       wrong_answer(field);
       good_answer(order[index_of_order]);
       round = 1;
@@ -55,8 +61,18 @@ function clicked_field(field) {  // 9 user interaction
 
 function start() {  // 1 (user interaction); 10; 11
   sequence_is_presented = false;
-  last_round_result = localStorage.getItem('');  // TODO
+  // last_round_result = localStorage.getItem('');  // TODO
   
+  last_round_result = localStorage.getItem('last_round_result');
+  best_result = localStorage.getItem('best_result');
+
+  if (last_round_result === null) {
+    last_round_result = 0;
+  }
+  if (best_result === null) {
+    best_result = 0;
+  }
+
   document.querySelector('body').innerHTML = `<div id="round_counter">Runda ${round}</div>` + '<div id="cards"><div class="card" id="card1" onclick="clicked_field(1)"></div><div class="card" id="card2" onclick="clicked_field(2)"></div><div class="card" id="card3" onclick="clicked_field(3)"></div><div class="card" id="card4" onclick="clicked_field(4)"></div><div class="card" id="card5" onclick="clicked_field(5)"></div><div class="card" id="card6" onclick="clicked_field(6)"></div><div class="card" id="card7" onclick="clicked_field(7)"></div><div class="card" id="card8" onclick="clicked_field(8)"></div><div class="card" id="card9" onclick="clicked_field(9)"></div></div>' + `<div class="statistics">Wynik ostatniej rundy: ${last_round_result}</div><div class="statistics">Najlepszy wynik: ${best_result}</div>`;
   function draw_order(round) {  // 3
     order = [];
