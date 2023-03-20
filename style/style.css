@@ -21,23 +21,45 @@ html {
 body {
   text-align: center;
 }
-button {
-  font-family: monospace;
-  font-size: 1.5rem;
-  color: #FAFAFA;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 2px solid #FAFAFA;
-  background: #252525;
-  box-shadow: 3px 3px #fafafa;
-  cursor: pointer;
-  margin: 35px 0;
+main {
+  margin-bottom: 20px;
 }
-
+footer {
+  background-color: var(--BGcolor);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+h1 {
+  margin: 20px 0;
+}
+ul {
+  list-style: none;
+  margin: 20px 0;
+}
+button {
+  font-weight: bold;
+  border: none;
+  font-family: monospace;
+  background-color: var(--cardColor);
+  margin: 25px 10px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #2394a3;
+  border-radius: 25px;
+  width: 80px;
+  height: 40px;
+  transition: 0.5s;
+  font-size: 17px;
+  text-transform: uppercase;
+}
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 27px #2394a3;
+}
 button:active {
-  box-shadow: none;
-  transform: translate(3px, 3px);
+  transform: scale(1.01);
+  box-shadow: 0 0 25px #2394a3;
 }
 div#cards {
   width: 390px;

@@ -1,4 +1,4 @@
-function draw_number(min, max){  // 4; 6
+function draw_number(min, max){  // draws numbers in the range from min to max
   min = parseInt(min, 10);
   max = parseInt(max, 10);
   if (min > max){
@@ -9,14 +9,14 @@ function draw_number(min, max){  // 4; 6
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-let sequence_is_presented = false;  // Przechowuje informacje, czy klikanie w przycisk będzie dziłać
-let round = 1;                      // numer rundy
-let order = [];                     // tablica order
-let index_of_order = 0;             // Aktualny index tablicy order
-let last_round_result;
-let best_result;
+let sequence_is_presented = false;  // stores a boolean if you can answer
+let round = 1;                      // number of the round
+let order = [];                     // the order of the round
+let index_of_order = 0;             // the current index of the order array
+let last_round_result;              // last round result
+let best_result;                    // best result
 
-function clicked_field(field) {  // 9 user interaction
+function clicked_field(field) {  // checks if the correct field has been clicked
   if (sequence_is_presented) {
     function good_answer(field) {
       function good_answer_remove() {
@@ -55,47 +55,49 @@ function clicked_field(field) {  // 9 user interaction
       setTimeout(start, 400);
     }
   } else {
-    window.alert('Wprowadzanie odpowiedzi należy zacząć dopiero po podświetleniu ilości pul równej liczbie rund');
+    window.alert('Start entering answers only after highlighting the number of squares equal to the number of rounds');
   }
 } 
 
-function start() {  // 1 (user interaction); 10; 11
+function start() {  // run when you press the start button
   sequence_is_presented = false;
-  // last_round_result = localStorage.getItem('');  // TODO
   
   last_round_result = localStorage.getItem('last_round_result');
   best_result = localStorage.getItem('best_result');
 
-  if (last_round_result === null) {
-    last_round_result = 0;
-  }
-  if (best_result === null) {
-    best_result = 0;
-  }
 
-  document.querySelector('body').innerHTML = `<div id="round_counter">Runda ${round}</div>` + '<div id="cards"><div class="card" id="card1" onclick="clicked_field(1)"></div><div class="card" id="card2" onclick="clicked_field(2)"></div><div class="card" id="card3" onclick="clicked_field(3)"></div><div class="card" id="card4" onclick="clicked_field(4)"></div><div class="card" id="card5" onclick="clicked_field(5)"></div><div class="card" id="card6" onclick="clicked_field(6)"></div><div class="card" id="card7" onclick="clicked_field(7)"></div><div class="card" id="card8" onclick="clicked_field(8)"></div><div class="card" id="card9" onclick="clicked_field(9)"></div></div>' + `<div class="statistics">Wynik ostatniej rundy: ${last_round_result}</div><div class="statistics">Najlepszy wynik: ${best_result}</div>`;
-  function draw_order(round) {  // 3
+
+  document.querySelector('main').innerHTML = `<div id="round_counter">Round ${round}</div>` + '<div id="cards"><div class="card" id="card1" onclick="clicked_field(1)"></div><div class="card" id="card2" onclick="clicked_field(2)"></div><div class="card" id="card3" onclick="clicked_field(3)"></div><div class="card" id="card4" onclick="clicked_field(4)"></div><div class="card" id="card5" onclick="clicked_field(5)"></div><div class="card" id="card6" onclick="clicked_field(6)"></div><div class="card" id="card7" onclick="clicked_field(7)"></div><div class="card" id="card8" onclick="clicked_field(8)"></div><div class="card" id="card9" onclick="clicked_field(9)"></div></div>';
+
+  if (last_round_result !== null) {
+    document.querySelector('main').innerHTML += `<div class="statistics">Last round result: ${last_round_result}</div>`;
+  }
+  if (best_result !== null) {
+    document.querySelector('main').innerHTML += `<div class="statistics">The best result: ${best_result}</div>`;
+  }
+  
+  function draw_order(round) {
     order = [];
     for (i = 1; i <= round; i++) {
       order.push(draw_number(1, 9));
     }
   }
 
-  function present_order(round) {  // 2
+  function present_order(round) {
     draw_order(round);
-    function field_color_remove(round) {  // 7
+    function field_color_remove(round) {
       for (i = 1; i <= 9; i++) {
         document.querySelector(`#card${order[round - 1]}`).classList.remove(`area_style${i}`);
       }
     }
-    function field_color_add(round) {  // 5
+    function field_color_add(round) {
       document.querySelector(`#card${order[round - 1]}`).classList.add(`area_style${draw_number(1, 7)}`);
       setTimeout(field_color_remove, 750, round);
     }
     for (i = 1; i <= round; i++) {
       setTimeout(field_color_add, (1000 * i), i);
     }
-    function sequence_is_presented_function(value) {  // 8
+    function sequence_is_presented_function(value) {
       sequence_is_presented = value;
     }
     setTimeout(sequence_is_presented_function, ((1000 * round) + 500), true);

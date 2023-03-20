@@ -1,18 +1,31 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
-    <title>Gra pamięciowa</title>
+    <title>Memory game</title>
   </head>
   <body>
-    <h1>Gra</h1>
-    <p>
-      W tej grze celem jest zapamiętanie jak największej ilości pól w odpowiedniej kolejności
-    </p>
-    <button onclick="start()">start</button>
+    <main>
+      <h1>Memory game by <a href="https://github.com/Cypek-exe/" target="_blank">Cyprian Moj</a></h1>
+      <h2 class="h2">rules:</h2>
+      <ul>
+        <li>memorize as many fields as possible in the correct order</li>
+        <li>do not click on the fields until the fields are no longer highlighted</li>
+      </ul>
+      
+      <button onclick="start()">start</button>
+    </main>
+    <footer>
+      <p>
+        if you can, please leave a comment/suggestion for <a href="https://github.com/Cypek-exe/memory-game/issues" target="_blank">this project</a>
+      </p>
+      <p>
+        Author: <a href="https://github.com/Cypek-exe/" target="_blank">Cyprian Moj</a> 
+      </p>
+    </footer>
     <script src="js/game.js"></script>
   </body>
 </html>
