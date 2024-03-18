@@ -1,106 +1,207 @@
-function draw_number(min, max){  // draws numbers in the range from min to max
-  min = parseInt(min, 10);
-  max = parseInt(max, 10);
-  if (min > max){
-    let tmp = min;
-    min = max;
-    max = tmp;
+class MemoryGame {
+  order = [];
+  round;
+  last_round_result;
+  best_result;
+
+  sequence_is_presenting;
+
+  round_counter_element;
+  cards_container_element;
+  cards_elements = [];
+  last_round_stat_element;
+  best_round_stat_element;
+
+  static CARDS_CSS_COLORS = [
+    "#972e2e",
+    "#c55c93",
+    "#893795",
+    "#3f49ab",
+    "#2394a3",
+    "#c1bf2d",
+    "#cd5c35"
+  ];
+
+  constructor(container_element) {
+    if (MemoryGame.isStorageEnabled()) {
+      this.last_round_result = localStorage.getItem("last_round_result");
+      this.best_result       = localStorage.getItem("best_result");
+
+      if (typeof this.last_round_result === "string") {
+        this.last_round_result = +this.last_round_result;
+      }
+      if (typeof this.best_result === "string") {
+        this.best_result = +this.best_result;
+      }
+    }
+
+    this.createDOM(container_element);
+    this.addEventToCards();
+
+    this.round = 1;
+    this.refreshRound();
+    this.getNewOrder();
+    this.presentOrder();
   }
-  return Math.floor(Math.random() * (max - min + 1) + min);
+
+  static isStorageEnabled() {
+    return (typeof(Storage) !== "undefined") && navigator.cookieEnabled;
+  }
+
+  static getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+  }
+
+  getNewOrder() {
+    this.order = [];
+
+    for (let i = 0; i < this.round; i++) {
+      const field_number = MemoryGame.getRandomInt(0, 8);
+      this.order.push(field_number);
+    }
+  }
+
+  refreshStats() {
+    this.last_round_stat_element.textContent = "Last round result: " + 
+      (this.last_round_result ?? "--");
+
+    this.best_round_stat_element.textContent = "The best result: " +
+      (this.best_result ?? "--");
+  }
+
+  refreshRound() {
+    this.round_counter_element.textContent = "Round " + this.round;
+  }
+
+  createDOM(container_element) {
+    this.round_counter_element    = document.createElement("div");
+    this.round_counter_element.id = "round_counter";
+
+    this.cards_container_element    = document.createElement("div");
+    this.cards_container_element.id = "cards";
+
+    const stats_container_element = document.createElement("div");
+    stats_container_element.id    = "stats";
+
+    this.last_round_stat_element    = document.createElement("div");
+    this.last_round_stat_element.id = "last_round";
+
+    this.best_round_stat_element    = document.createElement("div");
+    this.best_round_stat_element.id = "best_round";
+
+    stats_container_element.appendChild(this.last_round_stat_element);
+    stats_container_element.appendChild(this.best_round_stat_element);
+
+    this.refreshStats();
+
+    for (let i = 0; i < 9; i++) {
+      const card = document.createElement("div");
+      card.classList.add("card");
+
+      this.cards_elements.push(card);
+      this.cards_container_element.appendChild(card);
+    }
+
+    container_element.appendChild(this.round_counter_element);
+    container_element.appendChild(this.cards_container_element);
+    container_element.appendChild(stats_container_element);
+  }
+
+  addEventToCards() {
+    this.cards_container_element.addEventListener("click", (event) => {
+      const clicked_element = event.target;
+
+      if (this.cards_elements.includes(clicked_element)) {
+        const card_index = this.cards_elements.indexOf(clicked_element);
+        this.clickedCard(card_index);
+      }
+    });
+  }
+
+  correctAnswer(card_index) {
+    this.cards_elements[card_index].classList.add("area_good_answer");
+    setTimeout(() => {
+      this.cards_elements[card_index].classList.remove("area_good_answer");
+    }, 300)
+  }
+
+  wrongAnswer(card_index) {
+    this.cards_elements[card_index].classList.add("area_wrong_answer");
+    setTimeout(() => {
+      this.cards_elements[card_index].classList.remove("area_wrong_answer");
+    }, 300)
+  }
+
+  clickedCard(card_index) {
+    if (!this.sequence_is_presenting) {      
+      const correct_card = this.order.shift();
+
+      if (correct_card !== undefined) {
+        if (correct_card === card_index) {
+          this.correctAnswer(card_index);
+          if (this.order.length === 0) {
+            this.last_round_result = this.round;
+
+            if (this.last_round_result > this.best_result) {
+              this.best_result = this.last_round_result;
+            }
+
+            if (MemoryGame.isStorageEnabled()) {
+              localStorage.setItem("last_round_result", this.last_round_result);
+              localStorage.setItem("best_result", this.best_result);
+            }
+
+            this.refreshStats();
+
+            this.round++;
+            this.refreshRound();
+
+            this.getNewOrder();
+            this.presentOrder();
+          }
+        }
+        else {
+          this.wrongAnswer(card_index);
+          this.correctAnswer(correct_card);
+          this.round = 1;
+          this.refreshRound();
+          this.getNewOrder();
+          this.presentOrder();
+        }
+      }
+    }
+    else {
+      alert('Start entering answers only after highlighting the number of squares equal to the number of rounds');
+    }
+  }
+
+  highlightCard(card_index) {
+    const last_color_index = MemoryGame.CARDS_CSS_COLORS.length - 1;
+    const card_color = MemoryGame.CARDS_CSS_COLORS[
+      MemoryGame.getRandomInt(0, last_color_index)
+    ];
+
+    this.cards_elements[card_index].style.backgroundColor = card_color;
+    this.cards_elements[card_index].classList.add("highlighted_area_style");
+  }
+
+  removeHighlightCard(card_index) {
+    this.cards_elements[card_index].style.backgroundColor = "";
+    this.cards_elements[card_index].classList.remove("highlighted_area_style");
+  }
+
+  presentOrder() {
+    this.sequence_is_presenting = true;
+
+    for (let i = 0; i < this.round; i++) {
+      const card_index = this.order[i];
+      setTimeout(() => this.highlightCard(card_index), (1000 * i) + 1000);
+      setTimeout(() => this.removeHighlightCard(card_index), (1000 * i) + 1750);
+    }
+    setTimeout(() => {
+      this.sequence_is_presenting = false
+    }, (this.round * 1000) + 750);
+  }
 }
 
-let sequence_is_presented = false;  // stores a boolean if you can answer
-let round = 1;                      // number of the round
-let order = [];                     // the order of the round
-let index_of_order = 0;             // the current index of the order array
-let last_round_result;              // last round result
-let best_result;                    // best result
-
-function clicked_field(field) {  // checks if the correct field has been clicked
-  if (sequence_is_presented) {
-    function good_answer(field) {
-      function good_answer_remove() {
-        document.getElementById(`card${field}`).classList.remove('area_good_answer');
-      }
-      document.getElementById(`card${field}`).classList.add('area_good_answer');
-      setTimeout(good_answer_remove, 300);
-    }
-    function wrong_answer(field) {
-      function wrong_answer_remove() {
-        document.getElementById(`card${field}`).classList.remove('area_wrong_answer');
-      }
-      document.getElementById(`card${field}`).classList.add('area_wrong_answer');
-      setTimeout(wrong_answer_remove, 300);
-    }
-    if (order[index_of_order] === field) {
-      good_answer(order[index_of_order]);
-      if ((index_of_order + 1) >= order.length) {
-        round++;
-        index_of_order = 0;
-
-        setTimeout(start, 400);
-      } else {
-        index_of_order++;
-      }
-    } else {
-      localStorage.setItem('last_round_result', (round - 1));
-      last_round_result = localStorage.getItem('last_round_result');
-      if (last_round_result > best_result) {
-        localStorage.setItem('best_result', (round - 1));
-      }
-      wrong_answer(field);
-      good_answer(order[index_of_order]);
-      round = 1;
-      index_of_order = 0;
-      setTimeout(start, 400);
-    }
-  } else {
-    window.alert('Start entering answers only after highlighting the number of squares equal to the number of rounds');
-  }
-} 
-
-function start() {  // run when you press the start button
-  sequence_is_presented = false;
-  
-  last_round_result = localStorage.getItem('last_round_result');
-  best_result = localStorage.getItem('best_result');
-
-
-
-  document.querySelector('main').innerHTML = `<div id="round_counter">Round ${round}</div>` + '<div id="cards"><div class="card" id="card1" onclick="clicked_field(1)"></div><div class="card" id="card2" onclick="clicked_field(2)"></div><div class="card" id="card3" onclick="clicked_field(3)"></div><div class="card" id="card4" onclick="clicked_field(4)"></div><div class="card" id="card5" onclick="clicked_field(5)"></div><div class="card" id="card6" onclick="clicked_field(6)"></div><div class="card" id="card7" onclick="clicked_field(7)"></div><div class="card" id="card8" onclick="clicked_field(8)"></div><div class="card" id="card9" onclick="clicked_field(9)"></div></div>';
-
-  if (last_round_result !== null) {
-    document.querySelector('main').innerHTML += `<div class="statistics">Last round result: ${last_round_result}</div>`;
-  }
-  if (best_result !== null) {
-    document.querySelector('main').innerHTML += `<div class="statistics">The best result: ${best_result}</div>`;
-  }
-  
-  function draw_order(round) {
-    order = [];
-    for (i = 1; i <= round; i++) {
-      order.push(draw_number(1, 9));
-    }
-  }
-
-  function present_order(round) {
-    draw_order(round);
-    function field_color_remove(round) {
-      for (i = 1; i <= 9; i++) {
-        document.querySelector(`#card${order[round - 1]}`).classList.remove(`area_style${i}`);
-      }
-    }
-    function field_color_add(round) {
-      document.querySelector(`#card${order[round - 1]}`).classList.add(`area_style${draw_number(1, 7)}`);
-      setTimeout(field_color_remove, 750, round);
-    }
-    for (i = 1; i <= round; i++) {
-      setTimeout(field_color_add, (1000 * i), i);
-    }
-    function sequence_is_presented_function(value) {
-      sequence_is_presented = value;
-    }
-    setTimeout(sequence_is_presented_function, ((1000 * round) + 500), true);
-  }
-  present_order(round);
-}
+export default MemoryGame;

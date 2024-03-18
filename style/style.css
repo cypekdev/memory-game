@@ -84,32 +84,7 @@ div#cards {
   box-shadow: 7px 7px 20px var(--darkGray);
   background-color: var(--colorActive);
 }
-.area_style1 {
-  background-color: #972e2e;
-  box-shadow: inset 5px 5px 50px #ffffff40;
-}
-.area_style2 {
-  background-color: #c55c93;
-  box-shadow: inset 5px 5px 50px #ffffff40;
-}
-.area_style3 {
-  background-color: #893795;
-  box-shadow: inset 5px 5px 50px #ffffff40;
-}
-.area_style4 {
-  background-color: #3f49ab;
-  box-shadow: inset 5px 5px 50px #ffffff40;
-}
-.area_style5 {
-  background-color: #2394a3;
-  box-shadow: inset 5px 5px 50px #ffffff40;
-}
-.area_style6 {
-  background-color: #c1bf2d;
-  box-shadow: inset 5px 5px 50px #ffffff40;
-}
-.area_style7 {
-  background-color: #cd5c35;
+.highlighted_area_style {
   box-shadow: inset 5px 5px 50px #ffffff40;
 }
 .area_good_answer {
@@ -121,7 +96,6 @@ div#cards {
 }
 .area_good_answer:active {
   box-shadow: 7px 7px 20px var(--goodAnswerColor), inset 5px 5px 50px #ffffff40;
-  background-color: var(--goodAnswerColor);
 }
 .area_wrong_answer {
   background-color: var(--wrongAnswerColor);
@@ -132,12 +106,11 @@ div#cards {
 }
 .area_wrong_answer:active {
   box-shadow: 7px 7px 20px var(--wrongAnswerColor), inset 5px 5px 50px #ffffff40;
-  background-color: var(--wrongAnswerColor);
 }
 div#round_counter {
   font-size: 50px;
   text-shadow: 0 0 15px#2394a3;
 }
-div.statistics {
+div#stats {
   text-shadow: 0 0 15px#2394a3;
 }

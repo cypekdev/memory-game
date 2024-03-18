@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/style.css">
-    <title>Memory game</title>
-  </head>
-  <body>
-    <main>
-      <h1>Memory game by <a href="https://github.com/Cypek-exe/" target="_blank">Cyprian Moj</a></h1>
-      <h2>rules:</h2>
-      <ul>
-        <li>memorize as many fields as possible in the correct order</li>
-        <li>do not click on the fields until the fields are no longer highlighted</li>
-      </ul>
-      
-      <button onclick="start()">start</button>
-    </main>
-    <footer>
-      <p>
-        if you can, please leave a comment/suggestion for <a href="https://github.com/Cypek-exe/memory-game/issues" target="_blank">this project</a>
-      </p>
-      <p>
-        Author: <a href="https://github.com/Cypek-exe/" target="_blank">Cyprian Moj</a> 
-      </p>
-    </footer>
-    <script src="js/game.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style/style.css">
+  <title>Memory game</title>
+</head>
+<body>
+  <main id="main_content">
+    <h1>Memory game by <a href="https://github.com/cypekdev/" target="_blank">cypekdev</a></h1>
+    <h2>rules:</h2>
+    <ul>
+      <li>memorize as many fields as possible in the correct order</li>
+      <li>do not click on the fields until the fields are no longer highlighted</li>
+    </ul>
+    <button id="start_button">start</button>
+    <br>
+    <label for="dont_show_again">don't show again</label>
+    <input type="checkbox" name="dont_show_again" id="dont_show_again" checked>
+  </main>
+  <footer>
+    <p>
+      Author: <a href="https://github.com/cypekdev/" target="_blank">cypekdev</a> 
+    </p>
+  </footer>
+
+  <script type="module" src="./js/game.js"></script>
+  <script type="module" src="./js/app.js"></script>
+</body>
 </html>
